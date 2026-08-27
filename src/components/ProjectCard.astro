@@ -1,0 +1,161 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { covers } from './covers.ts';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  index: number;
+  flip?: boolean;
+}
+
+const { project, index, flip = false } = Astro.props;
+const slug = project.slug;
+const id = `proj-${slug}`;
+const cover = covers[project.data.coverArt];
+const gallery = project.data.gallery ?? [];
+const coverTagText: Record<string, string> = {
+  open: 'open source',
+  offline: 'offline-first',
+  mission: 'mission-critical',
+};
+---
+
+<article class:list={['project', 'reveal', flip && 'project--flip']} style="--i:{{Math.min(index, 3)}}">
+  <span class="project__idx">{String(index + 1).padStart(2, '0')}</span>
+  <div class="project__body">
+    <h3 id={id}><a href={`#${id}`}>{project.data.title}</a></h3>
+    <p class="project__desc">
+      <span lang="en" data-lang-part="en">{project.data.desc.en}</span>
+      <span lang="es" data-lang-part="es" hidden>{project.data.desc.es}</span>
+    </p>
+    <p class="project__meta">{project.data.meta}</p>
+    {gallery.length > 0 && (
+      <button
+        class="project__link"
+        type="button"
+        data-gallery-open={`gallery-${slug}`}
+      >
+        <span data-i18n="project.gallery">View gallery</span> <span class="arr" aria-hidden="true">→</span>
+      </button>
+    )}
+  </div>
+  {gallery.length > 0 ? (
+    <div class="cover cover--photo">
+      <img class="cover__photo" src={gallery[0]} alt="" loading="lazy" />
+      <span class="cover__tag" data-i18n={`cover.${project.data.coverTag}`}>{coverTagText[project.data.coverTag]}</span>
+    </div>
+  ) : (
+    cover && (
+      <div class={`cover cover--${cover.tone}`} aria-hidden="true">
+        <Fragment set:html={cover.svg} />
+        <span class="cover__tag" data-i18n={`cover.${project.data.coverTag}`}>{coverTagText[project.data.coverTag]}</span>
+      </div>
+    )
+  )}
+</article>
+
+{gallery.length > 0 && (
+  <div
+    class="lightbox"
+    id={`gallery-${slug}`}
+    role="dialog"
+    aria-modal="true"
+    aria-label={`${project.data.title} — gallery`}
+    hidden
+  >
+    <div class="lightbox__backdrop" data-lightbox-close></div>
+    <figure class="lightbox__figure">
+      <img
+        class="lightbox__img"
+        src={gallery[0]}
+        alt={project.data.title}
+        loading="lazy"
+      />
+      <figcaption class="lightbox__caption mono caps">{project.data.title}</figcaption>
+    </figure>
+    {gallery.length > 1 && (
+      <div class="lightbox__nav">
+        <button class="lightbox__arrow" type="button" data-gallery-prev aria-label="Previous image">←</button>
+        <span class="lightbox__count mono" data-gallery-count>1 / {gallery.length}</span>
+        <button class="lightbox__arrow" type="button" data-gallery-next aria-label="Next image">→</button>
+      </div>
+    )}
+    <button
+      class="lightbox__close"
+      type="button"
+      data-lightbox-close
+      aria-label="Close gallery"
+      data-i18n-aria="gallery.close"
+    >
+      ✕
+    </button>
+    <script type="application/json" data-gallery-images set:html={JSON.stringify(gallery)} />
+  </div>
+)}
+
+<script>
+  let lastFocused: HTMLElement | null = null;
+
+  function openLightbox(lightbox: HTMLElement) {
+    lastFocused = document.activeElement as HTMLElement;
+    lightbox.hidden = false;
+    document.documentElement.style.overflow = 'hidden';
+    lightbox.querySelector<HTMLButtonElement>('.lightbox__close')?.focus();
+  }
+
+  function closeLightbox(lightbox: HTMLElement) {
+    lightbox.hidden = true;
+    if (!document.querySelector('.lightbox:not([hidden])')) {
+      document.documentElement.style.overflow = '';
+    }
+    lastFocused?.focus();
+    lastFocused = null;
+  }
+
+  function showImage(lightbox: HTMLElement, index: number) {
+    const raw = lightbox.querySelector('[data-gallery-images]')?.textContent;
+    const images: string[] = raw ? JSON.parse(raw) : [];
+    if (images.length === 0) return;
+    const current = ((index % images.length) + images.length) % images.length;
+    const img = lightbox.querySelector<HTMLImageElement>('.lightbox__img');
+    if (img) img.src = images[current];
+    const count = lightbox.querySelector('[data-gallery-count]');
+    if (count) count.textContent = `${current + 1} / ${images.length}`;
+    lightbox.dataset.index = String(current);
+  }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+
+    const opener = target.closest<HTMLElement>('[data-gallery-open]');
+    if (opener) {
+      const lightbox = document.getElementById(opener.getAttribute('data-gallery-open') || '');
+      if (lightbox instanceof HTMLElement) openLightbox(lightbox);
+      return;
+    }
+
+    if (target.closest('[data-lightbox-close]')) {
+      const lightbox = target.closest<HTMLElement>('.lightbox');
+      if (lightbox instanceof HTMLElement) closeLightbox(lightbox);
+      return;
+    }
+
+    const prev = target.closest<HTMLElement>('[data-gallery-prev]');
+    if (prev) {
+      const lightbox = prev.closest<HTMLElement>('.lightbox');
+      if (lightbox instanceof HTMLElement) showImage(lightbox, Number(lightbox.dataset.index ?? 0) - 1);
+      return;
+    }
+
+    const next = target.closest<HTMLElement>('[data-gallery-next]');
+    if (next) {
+      const lightbox = next.closest<HTMLElement>('.lightbox');
+      if (lightbox instanceof HTMLElement) showImage(lightbox, Number(lightbox.dataset.index ?? 0) + 1);
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    document.querySelectorAll<HTMLElement>('.lightbox:not([hidden])').forEach(closeLightbox);
+  });
+</script>

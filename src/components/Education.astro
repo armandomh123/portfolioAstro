@@ -1,0 +1,75 @@
+---
+const certificates = [
+  {
+    title: 'Learn TypeScript',
+    href: 'https://www.boot.dev/certificates/4edc1060-0ebc-4e7d-bb0d-e6fe26e431e5',
+    img: 'https://qvault-webapp-dynamic-assets.storage.googleapis.com/certificates/4edc1060-0ebc-4e7d-bb0d-e6fe26e431e5.jpeg?v=1786961440',
+  },
+  {
+    title: 'Learn SQL',
+    href: 'https://www.boot.dev/certificates/9762ebbc-9539-48bf-a906-2bed9f6f64d9',
+    img: 'https://qvault-webapp-dynamic-assets.storage.googleapis.com/certificates/9762ebbc-9539-48bf-a906-2bed9f6f64d9.jpeg?v=1786519352',
+  },
+  {
+    title: 'Introduction to Python',
+    href: 'https://www.boot.dev/certificates/0e323677-ee85-4781-a3a0-e1c5f2abb869',
+    img: 'https://qvault-webapp-dynamic-assets.storage.googleapis.com/certificates/0e323677-ee85-4781-a3a0-e1c5f2abb869.jpeg?v=1778311842',
+  },
+  {
+    title: 'Object Oriented Programming in Python',
+    href: 'https://www.boot.dev/certificates/7ccb6069-611e-4892-a267-13adbb30a932',
+    img: 'https://qvault-webapp-dynamic-assets.storage.googleapis.com/certificates/7ccb6069-611e-4892-a267-13adbb30a932.jpeg?v=1780559467',
+  },
+  {
+    title: 'Learn Linux',
+    href: 'https://www.boot.dev/certificates/58747b40-6e77-4a87-8997-1076e81fe1c6',
+    img: 'https://qvault-webapp-dynamic-assets.storage.googleapis.com/certificates/58747b40-6e77-4a87-8997-1076e81fe1c6.jpeg?v=1778828220',
+  },
+  {
+    title: 'Learn JavaScript',
+    href: 'https://www.boot.dev/certificates/37a05e62-c671-42fa-a053-f67636a9d873',
+    img: 'https://qvault-webapp-dynamic-assets.storage.googleapis.com/certificates/37a05e62-c671-42fa-a053-f67636a9d873.jpeg?v=1784193031',
+  },
+  {
+    title: 'Learn Git',
+    href: 'https://www.boot.dev/certificates/0f638682-04d0-43fd-979e-8e8c558832db',
+    img: 'https://qvault-webapp-dynamic-assets.storage.googleapis.com/certificates/0f638682-04d0-43fd-979e-8e8c558832db.jpeg?v=1786750221',
+  },
+  {
+    title: 'Learn Docker',
+    href: 'https://www.boot.dev/certificates/23b39162-7f5c-4a5c-83bd-53c0ba30c834',
+    img: 'https://qvault-webapp-dynamic-assets.storage.googleapis.com/certificates/23b39162-7f5c-4a5c-83bd-53c0ba30c834.jpeg?v=1787567333',
+  },
+];
+---
+
+<section class="section" id="education" aria-labelledby="education-title">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <p class="mono caps" style="margin:0" data-i18n="edu.label">02 — Education</p>
+      <h2 id="education-title" data-i18n="edu.title">Complementary education</h2>
+      <span class="section__rule" aria-hidden="true"></span>
+    </div>
+
+    <ul class="edu__grid reveal" style="--i:1">
+      {certificates.map((cert, i) => (
+        <li class="edu__card">
+          <a href={cert.href} target="_blank" rel="noopener noreferrer">
+            <img
+              src={cert.img}
+              alt={`Boot.dev ${cert.title} certificate`}
+              loading="lazy"
+              width="450"
+              height="340"
+            />
+            <span class="edu__meta">
+              <span class="edu__no">{String(i + 1).padStart(2, '0')}</span>
+              <span class="edu__name">{cert.title}</span>
+              <span class="edu__src">boot.dev ↗</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

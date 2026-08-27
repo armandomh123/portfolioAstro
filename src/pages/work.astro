@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<Base title="Jesús Manjarrez — Work">
+  <main id="main">
+    <section class="section" id="work" aria-labelledby="work-title">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="mono caps" style="margin:0" data-i18n="work.index.label">Index</p>
+          <h2 id="work-title" data-i18n="work.index.title">All projects</h2>
+          <span class="section__rule" aria-hidden="true"></span>
+        </div>
+
+        {projects.map((project, i) => (
+          <ProjectCard project={project} index={i} flip={i % 2 === 1} />
+        ))}
+      </div>
+    </section>
+  </main>
+</Base>

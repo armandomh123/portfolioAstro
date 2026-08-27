@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+
+const featured = (await getCollection('projects'))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="section" id="work" aria-labelledby="work-title">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <p class="mono caps" style="margin:0" data-i18n="work.label">01 — Index</p>
+      <h2 id="work-title" data-i18n="work.title">Selected work</h2>
+      <span class="section__rule" aria-hidden="true"></span>
+    </div>
+
+    {featured.map((project, i) => (
+      <ProjectCard project={project} index={i} flip={i % 2 === 1} />
+    ))}
+
+    <div class="work__more reveal">
+      <a class="btn btn--accent" href="/work" data-i18n="work.viewAll">View all projects <span class="arr" aria-hidden="true">↘</span></a>
+    </div>
+  </div>
+</section>
