@@ -1,0 +1,86 @@
+---
+import { skillIcons } from './skillIcons';
+
+interface SkillCategory {
+  title: {
+    en: string;
+    es: string;
+  };
+  skills: string[];
+}
+
+const categories: SkillCategory[] = [
+  {
+    title: {
+      en: 'Frontend & UI',
+      es: 'Frontend & UI',
+    },
+    skills: [
+      'TypeScript',
+      'JavaScript',
+      'Astro',
+      'Tailwind CSS',
+      'Livewire',
+      'HTML5',
+      'CSS3',
+      'Figma',
+    ],
+  },
+  {
+    title: {
+      en: 'Backend & Languages',
+      es: 'Backend & Lenguajes',
+    },
+    skills: ['PHP', 'Laravel', 'Python'],
+  },
+  {
+    title: {
+      en: 'Databases & BaaS',
+      es: 'Bases de Datos & BaaS',
+    },
+    skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Supabase', 'SQL'],
+  },
+  {
+    title: {
+      en: 'DevOps & Tooling',
+      es: 'DevOps & Herramientas',
+    },
+    skills: ['Docker', 'Linux', 'Git', 'GitHub'],
+  },
+];
+---
+
+<section class="section" id="skills" aria-labelledby="skills-title">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <h2 id="skills-title" data-i18n="skills.title">Technologies & tools</h2>
+      <span class="section__rule" aria-hidden="true"></span>
+    </div>
+
+    <div class="skills__board reveal" style="--i:1">
+      {categories.map((cat, i) => (
+        <div class="skills__group">
+          <div class="skills__group-head">
+            <span class="skills__group-no mono">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="skills__group-title">
+              <span lang="en" data-lang-part="en">{cat.title.en}</span>
+              <span lang="es" data-lang-part="es" hidden>{cat.title.es}</span>
+            </h3>
+          </div>
+          <ul class="skills__group-items" aria-label={cat.title.en}>
+            {cat.skills.map((skill) => (
+              <li class="skills__chip">
+                {skillIcons[skill] && (
+                  <span class="skills__chip-icon" aria-hidden="true">
+                    <Fragment set:html={skillIcons[skill]} />
+                  </span>
+                )}
+                <span class="skills__chip-name">{skill}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -157,6 +157,7 @@ html.js .reveal.is-in{ opacity:1; transform:none; }
 }
 
 .btn{
+  position:relative;
   display:inline-flex; align-items:center; gap:0.6em;
   font-family:var(--font-mono);
   font-size:0.8rem;
@@ -164,7 +165,63 @@ html.js .reveal.is-in{ opacity:1; transform:none; }
   text-decoration:none;
   padding:0.95em 1.5em;
   border-radius:999px;
-  transition:background-color var(--t-mid) var(--ease-quart), color var(--t-mid) var(--ease-quart), border-color var(--t-mid) var(--ease-quart), transform var(--t-mid) var(--ease-quart);
+  transition:background-color var(--t-mid) var(--ease-quart), color var(--t-mid) var(--ease-quart), border-color var(--t-mid) var(--ease-quart), box-shadow var(--t-mid) var(--ease-quart), transform var(--t-mid) var(--ease-quart);
+}
+.btn--primary{
+  background:var(--accent);
+  color:var(--cream);
+  border:1px solid var(--accent);
+  font-weight:500;
+  box-shadow:
+    0 4px 16px -2px color-mix(in oklch, var(--accent) 45%, transparent),
+    0 0 18px 2px color-mix(in oklch, var(--accent) 25%, transparent);
+}
+.btn--primary:hover{
+  background:var(--accent-deep);
+  border-color:var(--accent-deep);
+  color:var(--cream);
+  transform:translateY(-2px);
+  box-shadow:
+    0 8px 24px -2px color-mix(in oklch, var(--accent) 60%, transparent),
+    0 0 24px 4px color-mix(in oklch, var(--accent-text) 40%, transparent);
+}
+.btn--primary .arr{
+  transition:transform var(--t-mid) var(--ease-quart);
+}
+.btn--primary:hover .arr{
+  transform:translate(3px,-2px);
+}
+.btn--shine{
+  overflow:hidden;
+}
+.btn--shine::after{
+  content:"";
+  position:absolute;
+  top:-50%;
+  left:-100%;
+  width:60%;
+  height:200%;
+  background:linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  transform:rotate(25deg);
+  pointer-events:none;
+  animation:btn-shine 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+[data-theme="dark"] .btn--shine::after{
+  background:linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%
+  );
+}
+@keyframes btn-shine{
+  0%, 20%{ left:-100%; }
+  60%, 100%{ left:200%; }
 }
 .btn--accent{
   background:var(--accent);
@@ -237,6 +294,99 @@ html.js .reveal.is-in{ opacity:1; transform:none; }
 @keyframes hero-bounce{
   0%, 100%{ transform:translateY(0); }
   50%{ transform:translateY(7px); }
+}
+/* ---------- skills (tech stack) ---------- */
+.skills__board{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:clamp(1.2rem, 2.5vw, 2rem);
+}
+.skills__group{
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  padding:1.5rem 1.6rem;
+  background:var(--paper-deep);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  transition:border-color var(--t-mid) var(--ease-quart), transform var(--t-fast) var(--ease-quart);
+}
+.skills__group:hover{
+  border-color:var(--accent-soft);
+}
+.skills__group-head{
+  display:flex;
+  align-items:baseline;
+  gap:0.75rem;
+  padding-bottom:0.75rem;
+  border-bottom:1px solid var(--line);
+}
+.skills__group-no{
+  color:var(--ink-faint);
+  font-size:0.74rem;
+  letter-spacing:0.06em;
+}
+.skills__group-title{
+  margin:0;
+  font-size:1.05rem;
+  font-weight:500;
+  color:var(--ink);
+  letter-spacing:-0.01em;
+}
+.skills__group-items{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.5rem 0.6rem;
+  align-items:center;
+}
+.skills__chip{
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  padding:0.32rem 0.75rem;
+  border-radius:999px;
+  background:var(--paper-deep);
+  border:1px solid var(--line);
+  font-family:var(--font-mono);
+  font-size:0.73rem;
+  letter-spacing:0.03em;
+  color:var(--ink-soft);
+  transition:
+    border-color var(--t-mid) var(--ease-quart),
+    color var(--t-mid) var(--ease-quart),
+    background-color var(--t-mid) var(--ease-quart),
+    transform var(--t-fast) var(--ease-quart);
+  cursor:default;
+}
+.skills__chip:hover{
+  border-color:var(--accent-text);
+  color:var(--ink);
+  background:var(--paper-soft);
+  transform:translateY(-1px);
+}
+.skills__chip-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:15px;
+  height:15px;
+  flex:none;
+  color:var(--ink-faint);
+  transition:color var(--t-mid) var(--ease-quart);
+}
+.skills__chip-icon svg{
+  width:100%;
+  height:100%;
+  display:block;
+}
+.skills__chip:hover .skills__chip-icon{
+  color:var(--accent-text);
+}
+.skills__chip-name{
+  white-space:nowrap;
 }
 
 /* ---------- education (certificates) ---------- */
@@ -666,9 +816,21 @@ html.js .reveal.is-in{ opacity:1; transform:none; }
 @media (max-width: 620px){
   .contact__grid{ grid-template-columns:1fr; }
 }
+@media (max-width: 960px){
+  .skills__board{
+    grid-template-columns:repeat(2, 1fr);
+    gap:1.25rem;
+  }
+}
+@media (max-width: 560px){
+  .skills__board{
+    grid-template-columns:1fr;
+    gap:1rem;
+  }
+}
 
 @media (hover: none){
-  .cover:hover, .btn:hover{ transform:none; }
+  .cover:hover, .btn:hover, .skills__chip:hover{ transform:none; }
 }
 
 @media (prefers-reduced-motion: reduce){

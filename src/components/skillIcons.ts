@@ -1,0 +1,47 @@
+import {
+  siTypescript,
+  siJavascript,
+  siAstro,
+  siTailwindcss,
+  siLivewire,
+  siHtml5,
+  siCss,
+  siFigma,
+  siPhp,
+  siLaravel,
+  siPython,
+  siPostgresql,
+  siMysql,
+  siMongodb,
+  siSupabase,
+  siDocker,
+  siLinux,
+  siGit,
+  siGithub,
+} from 'simple-icons';
+
+const createSvg = (path: string) =>
+  `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="${path}"/></svg>`;
+
+export const skillIcons: Record<string, string> = {
+  TypeScript: createSvg(siTypescript.path),
+  JavaScript: createSvg(siJavascript.path),
+  Astro: createSvg(siAstro.path),
+  'Tailwind CSS': createSvg(siTailwindcss.path),
+  Livewire: createSvg(siLivewire.path),
+  HTML5: createSvg(siHtml5.path),
+  CSS3: createSvg(siCss.path),
+  Figma: createSvg(siFigma.path),
+  PHP: createSvg(siPhp.path),
+  Laravel: createSvg(siLaravel.path),
+  Python: createSvg(siPython.path),
+  PostgreSQL: createSvg(siPostgresql.path),
+  MySQL: createSvg(siMysql.path),
+  MongoDB: createSvg(siMongodb.path),
+  Supabase: createSvg(siSupabase.path),
+  SQL: `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 3.34 2 5v14c0 1.66 4.48 3 10 3s10-1.34 10-3V5c0-1.66-4.48-3-10-3zm0 2c4.42 0 8 1.01 8 1.8S16.42 7.6 12 7.6 4 6.59 4 5.8 7.58 4 12 4zm8 15c0 .79-3.58 1.8-8 1.8S4 19.79 4 19v-2.7c2.16 1.04 5.27 1.7 8 1.7s5.84-.66 8-1.7V19zm0-5.5c0 .79-3.58 1.8-8 1.8s-8-1.01-8-1.8v-2.7c2.16 1.04 5.27 1.7 8 1.7s5.84-.66 8-1.7v2.7z"/></svg>`,
+  Docker: createSvg(siDocker.path),
+  Linux: createSvg(siLinux.path),
+  Git: createSvg(siGit.path),
+  GitHub: createSvg(siGithub.path),
+};
