@@ -204,6 +204,41 @@ html.js .reveal.is-in{ opacity:1; transform:none; }
   flex:none;
 }
 
+.hero__scroll{
+  margin-top:clamp(2.5rem, 6vh, 4.5rem);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  color:var(--ink-soft);
+  border:1px solid var(--line);
+  background:var(--paper-deep);
+  text-decoration:none;
+  transition:
+    color var(--t-mid) var(--ease-quart),
+    border-color var(--t-mid) var(--ease-quart),
+    background-color var(--t-mid) var(--ease-quart),
+    transform var(--t-mid) var(--ease-quart);
+  animation:hero-bounce 2.4s ease-in-out infinite;
+}
+.hero__scroll:hover{
+  color:var(--accent-text);
+  border-color:var(--accent-text);
+  background:var(--paper-soft);
+  transform:translateY(2px);
+  animation-play-state:paused;
+}
+.hero__scroll-icon{
+  display:block;
+}
+
+@keyframes hero-bounce{
+  0%, 100%{ transform:translateY(0); }
+  50%{ transform:translateY(7px); }
+}
+
 /* ---------- education (certificates) ---------- */
 .edu__grid{
   list-style:none;
@@ -643,5 +678,6 @@ html.js .reveal.is-in{ opacity:1; transform:none; }
     transform:none !important;
     transition:none !important;
   }
-  .cover, .btn, .arr{ transition:none !important; }
+  .cover, .btn, .arr, .hero__scroll{ transition:none !important; }
+  .hero__scroll{ animation:none !important; }
 }

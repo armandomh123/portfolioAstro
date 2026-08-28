@@ -17,6 +17,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'hero.talk': 'Contact me',
     'hero.cv': 'View CV',
     'hero.cv.href': '/cv/cv-en.pdf',
+    'hero.scroll': 'Scroll to content',
     'edu.label': '02 — Education',
     'edu.title': 'Complementary education',
     'work.label': '01 — Index',
@@ -32,7 +33,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'contact.label': '03 — Contact',
     'contact.title': "Let's talk",
     'contact.back': 'Back to top',
-    'footer.made': 'Made by hand · <a href="#top">top</a>',
+    'footer.top': 'top',
   },
   es: {
     'meta.title': 'Jesús Manjarrez — Ingeniero de Software',
@@ -50,6 +51,7 @@ export const translations: Record<Lang, Record<string, string>> = {
     'hero.talk': 'Contáctame',
     'hero.cv': 'Ver CV',
     'hero.cv.href': '/cv/cv-es.pdf',
+    'hero.scroll': 'Ir al contenido',
     'edu.label': '02 — Educación',
     'edu.title': 'Educación complementaria',
     'work.label': '01 — Índice',
@@ -65,6 +67,6 @@ export const translations: Record<Lang, Record<string, string>> = {
     'contact.label': '03 — Contacto',
     'contact.title': 'Hablemos',
     'contact.back': 'Volver arriba',
-    'footer.made': 'Hecho a mano · <a href="#top">arriba</a>',
+    'footer.top': 'arriba',
   },
 };

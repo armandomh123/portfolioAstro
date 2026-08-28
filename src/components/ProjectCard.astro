@@ -13,11 +13,6 @@ const slug = project.slug;
 const id = `proj-${slug}`;
 const cover = covers[project.data.coverArt];
 const gallery = project.data.gallery ?? [];
-const coverTagText: Record<string, string> = {
-  open: 'open source',
-  offline: 'offline-first',
-  mission: 'mission-critical',
-};
 ---
 
 <article class:list={['project', 'reveal', flip && 'project--flip']} style="--i:{{Math.min(index, 3)}}">
@@ -42,13 +37,11 @@ const coverTagText: Record<string, string> = {
   {gallery.length > 0 ? (
     <div class="cover cover--photo">
       <img class="cover__photo" src={gallery[0]} alt="" loading="lazy" />
-      <span class="cover__tag" data-i18n={`cover.${project.data.coverTag}`}>{coverTagText[project.data.coverTag]}</span>
     </div>
   ) : (
     cover && (
       <div class={`cover cover--${cover.tone}`} aria-hidden="true">
         <Fragment set:html={cover.svg} />
-        <span class="cover__tag" data-i18n={`cover.${project.data.coverTag}`}>{coverTagText[project.data.coverTag]}</span>
       </div>
     )
   )}
