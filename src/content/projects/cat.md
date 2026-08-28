@@ -6,8 +6,8 @@ coverArt: vera
 coverTag: mission
 meta: HTML · CSS · JavaScript · PHP
 desc:
-  en: 'Technical support center where clients, technicians and admins resolve tickets. Role-based workflows, ticket lifecycle tracking and live administration.'
-  es: 'Centro de asistencia técnica donde clientes, técnicos y administradores resuelven incidencias. Flujos por rol, ciclo de vida de tickets y administración en tiempo real.'
+  en: 'School project — Technical support center where clients, technicians and admins resolve tickets. Role-based workflows, ticket lifecycle tracking and live administration.'
+  es: 'Proyecto escolar — Centro de asistencia técnica donde clientes, técnicos y administradores resuelven incidencias. Flujos por rol, ciclo de vida de tickets y administración en tiempo real.'
 gallery:
   - /images/projects/cat-01.webp
   - /images/projects/cat-02.webp
@@ -18,6 +18,8 @@ gallery:
   - /images/projects/cat-07.webp
   - /images/projects/cat-08.webp
 ---
+
+> **Proyecto escolar / School project.** Desarrollado como parte de la curriculum académica.
 
 CAT (Centro de Asistencia Técnica) — Mazatlán Technologies — is a ticket-based support platform where three roles collaborate to close incidents: clients who report problems, technicians who take and resolve them, and administrators who oversee the whole operation. Built with vanilla HTML, CSS, JavaScript and PHP, without a framework.
 
